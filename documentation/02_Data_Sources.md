@@ -131,19 +131,27 @@ Use universal markers to normalize Hoshino clinical data.
 
 **Location**: `evmirna_data/`
 
+Each project has up to 3 CSV files with naming pattern `{PROJECT_ID}_*.csv`:
+
 ```
 evmirna_data/
-├── project_ids.json          # 371 project IDs
-└── projects/
-    └── {project_id}/
-        ├── metadata.csv      # Sample info
-        ├── expression.csv    # TPM values
-        └── counts.csv        # Raw counts
+├── PRJDB2585_metadata.csv
+├── PRJDB2585_expression.csv
+├── PRJDB2585_expression_count.csv
+├── PRJDB6853_metadata.csv
+├── PRJDB6853_expression.csv
+├── PRJDB6853_expression_count.csv
+└── ... (1,086 files total)
 ```
+
+**File types per project**:
+- `{PROJECT_ID}_metadata.csv` - Sample information
+- `{PROJECT_ID}_expression.csv` - TPM normalized values
+- `{PROJECT_ID}_expression_count.csv` - Raw counts (344/371 projects)
 
 ### Data Summary
 - **Total projects**: 371
-- **Files**: 1,086
+- **Total files**: 1,086
 - **miRNAs**: ~2,000 per project
 - **Expression**: TPM (transcripts per million)
 

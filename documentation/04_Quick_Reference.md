@@ -104,52 +104,51 @@ universal_markers = [
 
 ## 3. EVmiRNA2.0 - miRNA Database
 
-### Load Project List
-```python
-import json
-
-with open('evmirna_data/project_ids.json', 'r') as f:
-    project_ids = json.load(f)
-
-print(f"Total projects: {len(project_ids)}")
-```
-
 ### Load Single Project
 ```python
 project_id = 'PRJDB2585'  # Example project
 
 # Metadata
-metadata = pd.read_csv(
-    f'evmirna_data/projects/{project_id}/metadata.csv'
-)
+metadata = pd.read_csv(f'evmirna_data/{project_id}_metadata.csv')
 
 # Expression (TPM normalized)
 expression = pd.read_csv(
-    f'evmirna_data/projects/{project_id}/expression.csv',
+    f'evmirna_data/{project_id}_expression.csv',
     index_col=0
 )
 
-# Raw counts (if available)
+# Raw counts (if available - 344/371 projects have this)
 counts = pd.read_csv(
-    f'evmirna_data/projects/{project_id}/counts.csv',
+    f'evmirna_data/{project_id}_expression_count.csv',
     index_col=0
 )
 ```
 
-### Explore All Projects
+### Get All Project IDs
 ```python
 import os
+import re
 
-projects_dir = 'evmirna_data/projects'
-for project_id in os.listdir(projects_dir):
-    project_path = f'{projects_dir}/{project_id}'
+# Extract unique project IDs from filenames
+files = os.listdir('evmirna_data')
+project_ids = sorted(set(
+    re.match(r'(PRJ\w+)_', f).group(1)
+    for f in files if f.startswith('PRJ')
+))
 
+print(f"Total projects: {len(project_ids)}")  # 371
+```
+
+### Explore All Projects
+```python
+for project_id in project_ids:
     # Check available files
-    files = os.listdir(project_path)
-    has_counts = 'counts.csv' in files
+    has_counts = os.path.exists(
+        f'evmirna_data/{project_id}_expression_count.csv'
+    )
 
     # Load metadata for disease info
-    meta = pd.read_csv(f'{project_path}/metadata.csv')
+    meta = pd.read_csv(f'evmirna_data/{project_id}_metadata.csv')
     # Disease labels in metadata columns
 ```
 
@@ -248,15 +247,16 @@ data_matrix <- hoshino[4:nrow(hoshino), 2:ncol(hoshino)]
 
 ### Load EVmiRNA Project
 ```r
-library(jsonlite)
-
-# Get project list
-project_ids <- fromJSON("evmirna_data/project_ids.json")
-
 # Load single project
 project_id <- "PRJDB2585"
+
+metadata <- read.csv(sprintf("evmirna_data/%s_metadata.csv", project_id))
 expression <- read.csv(
-    sprintf("evmirna_data/projects/%s/expression.csv", project_id),
+    sprintf("evmirna_data/%s_expression.csv", project_id),
+    row.names = 1
+)
+counts <- read.csv(
+    sprintf("evmirna_data/%s_expression_count.csv", project_id),
     row.names = 1
 )
 ```
@@ -265,11 +265,11 @@ expression <- read.csv(
 
 ## File Locations Summary
 
-| Dataset | Main File | Path |
-|---------|-----------|------|
+| Dataset | Main Files | Path |
+|---------|------------|------|
 | Hoshino | Human512Reports.xlsx | `hoshino2020_data/` |
 | Kugeratski | Source Quantitative.xlsx | `kugeratski2021_data/` |
-| EVmiRNA | project_ids.json | `evmirna_data/` |
+| EVmiRNA | {PROJECT_ID}_*.csv (1,086 files) | `evmirna_data/` |
 | Vesiclepedia | *_DATA_*.txt | `vesiclepedia_data/` |
 
 ---

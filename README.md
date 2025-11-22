@@ -52,7 +52,7 @@ kugeratski = pd.read_excel('kugeratski2021_data/Source Quantitative.xlsx',
                            sheet_name='Supplementary Table 2', header=None)
 
 # EVmiRNA2.0 - miRNA expression
-expression = pd.read_csv('evmirna_data/projects/PRJDB2585/expression.csv')
+expression = pd.read_csv('evmirna_data/PRJDB2585_expression.csv')
 
 # Vesiclepedia - Reference database
 proteins = pd.read_csv('vesiclepedia_data/VESICLEPEDIA_PROTEIN_MRNA_DATA_2024_10_13.txt', sep='\t')

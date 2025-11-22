@@ -8,13 +8,13 @@
 # Hoshino 2020 data (>100 MB)
 hoshino2020_data/*.xlsx
 
-# Batagov 2021 data (>3 GB)
-batagov2021_data/*.zip
-batagov2021_data/txt folder MaxQuant*/
+# Kugeratski 2021 data (>3 GB)
+kugeratski2021_data/*.zip
+kugeratski2021_data/txt folder MaxQuant*/
 
 # Keep small files
-!batagov2021_data/README.txt
-!batagov2021_data/Source Quantitative.xlsx
+!kugeratski2021_data/README.txt
+!kugeratski2021_data/Source Quantitative.xlsx
 
 # ===========================================
 # Standard ignores

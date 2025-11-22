@@ -43,10 +43,10 @@ echo "    Hoshino 2020 download complete!"
 echo ""
 
 # ---------------------------------------------
-# Batagov 2021 Data (3.2 GB)
+# Kugeratski 2021 Data (3.2 GB)
 # ---------------------------------------------
-echo ">>> Downloading Batagov 2021 data..."
-cd "$PROJECT_ROOT/batagov2021_data"
+echo ">>> Downloading Kugeratski 2021 data..."
+cd "$PROJECT_ROOT/kugeratski2021_data"
 
 ZIP1="txtfolderMaxQuant-MS14celllinesderivedexosomesfiles.zip"
 ZIP2="txtfolderMaxQuant-MSisolationmethodscomparisonfiles.zip"
@@ -83,7 +83,7 @@ else
     unzip -q "$ZIP2"
 fi
 
-echo "    Batagov 2021 download complete!"
+echo "    Kugeratski 2021 download complete!"
 echo ""
 
 # ---------------------------------------------
@@ -96,8 +96,8 @@ echo ""
 echo "Downloaded files:"
 echo "  - hoshino2020_data/Human512Reports.xlsx (108 MB)"
 echo "  - hoshino2020_data/Mouse74Reports.xlsx (15 MB)"
-echo "  - batagov2021_data/$ZIP1 (2.0 GB)"
-echo "  - batagov2021_data/$ZIP2 (1.2 GB)"
+echo "  - kugeratski2021_data/$ZIP1 (2.0 GB)"
+echo "  - kugeratski2021_data/$ZIP2 (1.2 GB)"
 echo ""
 echo "Total: ~3.3 GB"
 echo ""

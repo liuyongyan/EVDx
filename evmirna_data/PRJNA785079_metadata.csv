@@ -1,0 +1,3 @@
+BioProject,Run,EV_type,Source,disease,Disease_stage/treatment,Release_date,URL,EV isolated method,Project_Title,Project_Description
+PRJNA785079,SRR17085639,sEV,Primary cell|degenerative nucleus pulposus stem cell,-,-,2022-02-01,https://www.ncbi.nlm.nih.gov/bioproject/PRJNA785079/,-,Homo sapiens (human),Exosomes secreted by nucleus pulposus stem cells
+PRJNA785079,SRR17085640,sEV,Primary cell|normal nucleus pulposus stem cells,-,-,2022-02-01,https://www.ncbi.nlm.nih.gov/bioproject/PRJNA785079/,-,Homo sapiens (human),Exosomes secreted by nucleus pulposus stem cells

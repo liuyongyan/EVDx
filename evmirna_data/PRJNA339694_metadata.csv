@@ -1,0 +1,4 @@
+BioProject,Run,EV_type,Source,disease,Disease_stage/treatment,Release_date,URL,EV isolated method,Project_Title,Project_Description
+PRJNA339694,SRR4046439,sEV,Cardiosphere derived cells (hypoxia)|Heart|Primary cell,-,-,2018-08-21,https://www.ncbi.nlm.nih.gov/bioproject/PRJNA339694/,-,Homo sapiens (human),"RNA sequencing of extracted RNA from exosomes
+Overall design: Examination and comparison of exosomes isolated under hypoxia vs normoxia
+contributor: UCLA genomic core"

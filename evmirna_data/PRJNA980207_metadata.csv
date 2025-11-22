@@ -1,0 +1,3 @@
+BioProject,Run,EV_type,Source,disease,Disease_stage/treatment,Release_date,URL,EV isolated method,Project_Title,Project_Description
+PRJNA980207,SRR24831285,sEV,Hemangioma stem cells|Primary cell,-,-,2023-07-04,https://doi.org/10.1002/adfm.202304250,-,Extracellular Vesicles (EVs) derived from Hemangioma stem cells (HemSC) (human),"In order to investigate the function and mechanism of HemSC-EVs, we performed RNA-seq of HemSC-EVs which were extracted from cell culture supernatant of HemSC.
+Overall design: HemSC-EVs were extracted form cell culture supernatant of HemSC by ultra-centrifuge method.  Then RNA-seq was conducted for HemSC-EVs"

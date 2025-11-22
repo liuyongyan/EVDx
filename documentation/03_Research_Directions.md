@@ -99,39 +99,6 @@ This document outlines integration strategies and machine learning approaches fo
 
 ---
 
-### Strategy D: Transfer Learning
-
-**Goal**: Use overlapping cell lines to bridge datasets
-
-**Overlapping Cell Lines**:
-- MCF7 (breast cancer)
-- MDA-MB-231 (breast cancer)
-- PANC1 (pancreatic cancer)
-- HEK293 (kidney normal)
-
-**Approach**:
-1. Learn Hoshino ↔ Kugeratski transformation
-2. Apply normalization to clinical samples
-3. Validate across studies
-
-**Advantages**:
-- Leverages both proteomics datasets
-- Cross-study validation
-
----
-
-### Strategy E: Vesiclepedia Validation
-
-**Goal**: Use literature database to validate findings
-
-**Applications**:
-1. **Filter features** - Keep only proteins in multiple studies
-2. **Validate biomarkers** - Check if markers are published
-3. **GO enrichment** - Pathway analysis
-4. **Prioritize** - Rank by literature evidence
-
----
-
 ## Recommended Workflow
 
 ### Phase 2A: Proteomics Integration (Immediate)
@@ -168,13 +135,13 @@ This document outlines integration strategies and machine learning approaches fo
 
 ### Phase 2C: Cross-Validation (Later)
 
-1. **Vesiclepedia validation**
-   - Check biomarker overlap
-   - Literature support
-
-2. **Cross-modality validation**
+1. **Cross-modality validation**
    - Compare protein vs miRNA predictions
    - Ensemble approaches
+
+2. **External validation**
+   - Test on held-out samples
+   - Cross-dataset generalization
 
 ---
 
@@ -214,8 +181,8 @@ This document outlines integration strategies and machine learning approaches fo
 
 ### Biological Validation
 - Pathway enrichment: FDR <0.05
-- Literature support: >50% in Vesiclepedia
 - Cross-modality consistency: Same pathways identified
+- Known biomarker overlap: Published markers detected
 
 ---
 
@@ -245,6 +212,6 @@ This document outlines integration strategies and machine learning approaches fo
 1. Start with **Strategy A** (proteomics classification)
 2. Establish baseline performance
 3. Add **Strategy B** (pathway integration) for multi-omics
-4. Use **Strategy E** (Vesiclepedia) for validation throughout
+4. Build **Strategy C** (disease-specific models) for well-sampled diseases
 
 → [04_Quick_Reference.md](04_Quick_Reference.md) - Code examples for data loading

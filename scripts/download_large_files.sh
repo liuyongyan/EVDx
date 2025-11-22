@@ -66,14 +66,16 @@ else
 fi
 
 # Extract if not already extracted
-DIR1="txt folder MaxQuant - MS 14 cell lines derived exosomes files"
-DIR2="txt folder MaxQuant - MS isolation methods comparison files"
+DIR1="14_cell_lines_maxquant"
+DIR2="isolation_methods_maxquant"
 
 if [ -d "$DIR1" ]; then
     echo "    $DIR1 already extracted, skipping..."
 else
     echo "    Extracting 14 cell lines data..."
     unzip -q "$ZIP1"
+    # Rename to cleaner directory name
+    mv "txt folder MaxQuant - MS 14 cell lines derived exosomes files" "$DIR1"
 fi
 
 if [ -d "$DIR2" ]; then
@@ -81,6 +83,8 @@ if [ -d "$DIR2" ]; then
 else
     echo "    Extracting isolation methods data..."
     unzip -q "$ZIP2"
+    # Rename to cleaner directory name
+    mv "txt folder MaxQuant - MS isolation methods comparison files" "$DIR2"
 fi
 
 echo "    Kugeratski 2021 download complete!"

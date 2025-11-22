@@ -10,7 +10,8 @@ hoshino2020_data/*.xlsx
 
 # Kugeratski 2021 data (>3 GB)
 kugeratski2021_data/*.zip
-kugeratski2021_data/txt folder MaxQuant*/
+kugeratski2021_data/14_cell_lines_maxquant/
+kugeratski2021_data/isolation_methods_maxquant/
 
 # Keep small files
 !kugeratski2021_data/README.txt

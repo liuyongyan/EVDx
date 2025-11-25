@@ -77,7 +77,27 @@ graph TD
 
 ---
 
-## 3. Key Decisions & Trade-offs
+## 3. Strategic Repository Choices (Rationale)
+
+Our pipeline targets **PRIDE** (Proteomics) and **GEO** (miRNA) exclusively. This choice was deliberate to ensure automation reliability.
+
+### Why PRIDE for Proteomics?
+*   **Central Hub:** PRIDE is the primary node of the **ProteomeXchange Consortium**. Most journals require a PXD identifier, meaning data hosted on other nodes (MassIVE, jPOST, iProX) is often indexed in PRIDE's metadata.
+*   **MaxQuant Dominance:** PRIDE is the standard repository for the community that uses MaxQuant. This maximizes our chances of finding the specific `proteinGroups.txt` file structure we require for harmonization.
+*   **API Stability:** PRIDE offers a robust REST API for file filtering, unlike other repositories that often require FTP scraping.
+
+### Why GEO for miRNA?
+*   **The Transcriptomics Standard:** The Gene Expression Omnibus (GEO) is the global de facto standard for archiving RNA-seq and microarray data.
+*   **Processed Data Availability:** Unlike the Sequence Read Archive (SRA) which hosts raw reads (FASTQ), GEO entries (`GSE`) typically contain **Supplementary Files** with processed count matrices (`_counts.txt`, `_matrix.csv`), which allows us to bypass computationally expensive alignment pipelines.
+*   **Metadata Structure:** GEO enforces a structured metadata schema (`GSM` samples linked to `GSE` series), enabling programmatic inference of clinical attributes.
+
+### Limitations
+*   **Missing Data:** We miss datasets hosted on generalist repositories (Zenodo, Figshare) or institutional servers.
+*   **Raw-Only Studies:** By requiring processed results (`proteinGroups` / `counts`), we exclude ~80% of available studies that only provided raw data (FASTQ/RAW). This was a necessary trade-off for scalability.
+
+---
+
+## 4. Key Decisions & Trade-offs
 
 | Decision | Rationale |
 | :--- | :--- |

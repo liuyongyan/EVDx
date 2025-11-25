@@ -148,9 +148,13 @@ You will find the final ML-ready files in:
 ## 5. Repository Structure
 ```
 EVDx/
-├── analysis_results/       # FINAL DATABASE (Generated)
-│   ├── proteomics/         # Protein matrices & metadata
-│   └── mirna/              # miRNA matrices & metadata
+├── analysis_results/       # FINAL DATABASE
+│   ├── proteomics/
+│   │   ├── merged_protein_matrix_log2.csv  # The Main Protein Data (CSV)
+│   │   └── merged_metadata.csv             # Clinical Labels
+│   └── mirna/
+│       ├── merged_mirna_matrix_log2.csv    # The Main miRNA Data (CSV)
+│       └── merged_mirna_metadata.csv       # Clinical Labels
 ├── scripts/                # Automation Pipeline
 │   ├── 01_pride_scout.py              # Step 1: Scout Proteins
 │   ├── 02_download_pride_data.py      # Step 4: Download Proteins

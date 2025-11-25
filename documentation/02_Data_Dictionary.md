@@ -25,13 +25,17 @@ All data is provided in **CSV (Comma Separated Values)** format for maximum comp
 
 | Column | Description | Example |
 | :--- | :--- | :--- |
-| `Global_ID` | Unique Primary Key. Format: `{Accession}_{OriginalID}` | `PXD068982_Control_01` |
-| `Accession` | Source Study ID (PRIDE). | `PXD068982` |
-| `Original_Sample_ID` | The raw column name from the source file. | `Control_01` |
+| `Global_ID` | Unique Primary Key. Format: `{Accession}_{OriginalID}` | `PXD036491_HD1a` |
+| `Accession` | Source Study ID (PRIDE). | `PXD036491` |
+| `Original_Sample_ID` | The raw column name from the source file. | `HD1a` |
 | `Condition` | Inferred Label (Case/Control) from sample name. | `Healthy Control` |
-| `Refined_Condition` | **Final Clinical Label** derived from PubMed. | `Ovarian Cancer` |
+| `Refined_Condition` | **Final Clinical Label** derived from PubMed. | `COVID-19` |
 | `Proteins_Detected` | Quality metric: Number of non-zero proteins. | `450` |
-| `Batch` | Batch identifier (usually same as Accession). | `PXD068982` |
+| `Batch` | Batch identifier (usually same as Accession). | `PXD036491` |
+
+**Known Labeling Logic:**
+*   **PXD024216 (Alzheimer's):** Inferred from biomarker levels (`RBP4`).
+*   **PXD036491 (COVID-19):** `HD` = Healthy, `PZ` = Patient.
 
 ---
 

@@ -28,6 +28,33 @@ def update_metadata(meta_path, label_path, id_col, label_col):
     for index, row in meta_df.iterrows():
         acc = row['Accession']
         current_cond = row['Condition']
+        sample_id = row['Original_Sample_ID']
+        
+        # Check for sample-level inferred metadata
+        inferred_meta_path = f"analysis_results/{acc}/inferred_metadata.csv"
+        if os.path.exists(inferred_meta_path):
+            try:
+                # Load on demand (or cache it for performance if list is huge)
+                sample_map = pd.read_csv(inferred_meta_path).set_index('SampleID')['Group'].to_dict()
+                
+                mapped_group = None
+                if sample_id in sample_map:
+                    mapped_group = sample_map[sample_id]
+                elif "_" in sample_id:
+                    # Try stripping suffix (e.g. EV1_1 -> EV1)
+                    base_id = sample_id.rsplit('_', 1)[0]
+                    if base_id in sample_map:
+                        mapped_group = sample_map[base_id]
+                        
+                if mapped_group:
+                    # Map "Disease" to the specific label, "Control" to "Healthy Control"
+                    if mapped_group.lower() == "disease":
+                        current_cond = "Case" # Let downstream logic pick the specific disease name
+                    elif mapped_group.lower() == "control":
+                        current_cond = "Healthy Control"
+            except Exception as e:
+                # print(f"Error reading {inferred_meta_path}: {e}")
+                pass
         
         better_label = label_map.get(acc, "")
         

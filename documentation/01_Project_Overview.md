@@ -35,10 +35,12 @@ We have successfully built the largest known open-source harmonized EV database:
 | **miRNA** | 20+ | 1,455 | 7,480 | **Ready** |
 
 ### Key Disease Cohorts
-*   **Neurodegenerative:** Parkinson's Disease, Alzheimer's Disease, ALS.
+*   **Neurodegenerative:** Parkinson's Disease, Alzheimer's Disease (with Controls), ALS.
 *   **Oncology:** Ovarian, Lung, Pancreatic, Liver, and Gastric Cancers.
-*   **Infectious:** COVID-19, Sepsis.
+*   **Infectious:** COVID-19 (with Controls), Sepsis.
 *   **Inflammatory:** Rheumatoid Arthritis.
+
+*Note: Ovarian Cancer cohort (PXD068982) currently requires manual label verification.*
 
 ## 5. Repository Contents
 *   **`analysis_results/`**: The final merged databases (CSV/Parquet).

@@ -27,6 +27,13 @@ def infer_sample_type(sample_name, study_disease):
     """
     s = sample_name.lower()
     
+    # Specific Study Rules
+    # PXD036491 (COVID): HD = Healthy Donor, Pz/PZ = Patient
+    if s.startswith("hd"):
+        return "Healthy Control"
+    if s.startswith("pz"):
+        return study_disease if study_disease else "Case"
+    
     # Control keywords
     if any(x in s for x in ['control', 'ctrl', 'healthy', 'norm', 'hc_', '_hc', 'non-disease']):
         return "Healthy Control"

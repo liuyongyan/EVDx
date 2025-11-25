@@ -1,146 +1,77 @@
-# EVDx - AI-Powered Disease Diagnosis from Extracellular Vesicles
+# EVDx: AI-Powered Disease Diagnosis from Extracellular Vesicles (Phase 2)
 
-## Overview
+**Status:** Data Collection & Harmonization Complete. Ready for Analysis.
 
-EVDx develops machine learning models for disease diagnosis using extracellular vesicle (EV) biomarkers. The goal is to predict diseases from EV molecular profiles (proteins, miRNAs).
+## 1. Objective
+To develop a diagnostic machine learning model using a massive, aggregated database of Extracellular Vesicle (EV) omics data from human blood.
 
-**Current Status**: Phase 1 Complete | Phase 2 In Progress
+## 2. The "Wide Net" Database
+We have successfully aggregated and harmonized data from over **50 studies** using strict quality filters (Human Blood only, Standardized Pipelines).
 
----
+### A. Proteomics Database
+*   **Source:** PRIDE (MaxQuant processed).
+*   **Total Samples:** 258
+*   **Total Features:** 4,469 Proteins
+*   **Key Cohorts:**
+    *   **Ovarian Cancer:** 121 samples
+    *   **COVID-19:** 60 samples
+    *   **Alzheimer's Disease:** 57 samples
+    *   **Lung Cancer:** 9 samples
+    *   **ALS:** 11 samples
+*   **File:** `analysis_results/proteomics/merged_protein_matrix_log2.csv`
 
-## Data Summary
+### B. miRNA Database
+*   **Source:** GEO (RNA-seq Counts).
+*   **Total Samples:** 1,455
+*   **Total Features:** 56,359 miRNA entries
+*   **Key Cohorts:**
+    *   **Parkinson's Disease:** 222 samples
+    *   **Cancer (Mixed):** 272 samples
+*   **File:** `analysis_results/mirna/merged_mirna_matrix_log2.csv`
 
-Four complementary datasets covering proteins, miRNAs, and metadata:
+## 3. Methodology
 
-| Dataset | Type | Samples | Key Use |
-|---------|------|---------|---------|
-| **Hoshino 2020** | Proteins | 512 | Clinical classification (21 cancers) |
-| **Kugeratski 2021** | Proteins | 42 | Normalization markers |
-| **EVmiRNA2.0** | miRNAs | 371 projects | miRNA signatures |
-| **Vesiclepedia** | Mixed | 3,481 expts | Validation reference |
+### Automated Scouting
+We replaced manual literature search with automated API scouts:
+*   **Proteomics Scout (`scripts/01_pride_scout.py`):** Targeted datasets with `proteinGroups.txt` or result tables.
+*   **miRNA Scout (`scripts/05_geo_scout.py`):** Targeted datasets with `raw_counts` or `matrix` files.
 
-**Total**: ~3.5 GB, 1,101 files
+### Deep Metadata Enrichment
+To resolve missing labels (e.g., "Cancer vs Healthy"), we implemented a multi-stage inference pipeline:
+1.  **Repository Metadata:** Parsed PRIDE/GEO descriptions.
+2.  **Literature Mining:** Scraped PubMed Abstracts (`scripts/11_fetch_pubmed_abstracts.py`) to identify specific disease cohorts (e.g., "Triple-Negative Breast Cancer" instead of just "Cancer").
+3.  **File Header Inspection:** Inferred "Control" vs "Case" based on sample naming conventions (`Ctrl_01`, `Cancer_03`).
 
-→ See [documentation/02_Data_Sources.md](documentation/02_Data_Sources.md) for details
+### Normalization & Traceability
+*   **Global ID:** Every sample is assigned a unique ID: `{Accession}_{OriginalName}` (e.g., `PXD024216_EV1`).
+*   **Batch Tracking:** The `Batch` column in metadata allows for "Leave-One-Study-Out" validation to prevent overfitting to specific lab conditions.
+*   **Quantification:**
+    *   Proteins: Log2 LFQ Intensity.
+    *   miRNA: Log2 Counts (aggregated by ID).
 
----
+## 4. Next Steps: Machine Learning
+With the database built, we will now proceed to:
+1.  **Exploratory Data Analysis (EDA):** Visualize batch effects using PCA/t-SNE.
+2.  **Batch Correction:** Apply ComBat or similar methods to remove lab-specific variation.
+3.  **Classifier Training:** Train Random Forest / XGBoost models to predict disease status.
+4.  **Biomarker Discovery:** Identify universal markers that persist across different studies.
 
-## Quick Start
-
-### 1. Clone Repository
-```bash
-git clone https://github.com/[username]/EVDx.git
-cd EVDx
-```
-
-### 2. Download Large Files (3.3 GB)
-```bash
-./scripts/download_large_files.sh
-```
-
-### 3. Load Data
-
-**Python**:
-```python
-import pandas as pd
-
-# Hoshino 2020 - Clinical proteomics
-hoshino = pd.read_excel('hoshino2020_data/Human512Reports.xlsx', header=None)
-
-# Kugeratski 2021 - Cell line proteomics
-kugeratski = pd.read_excel('kugeratski2021_data/Source Quantitative.xlsx',
-                           sheet_name='Supplementary Table 2', header=None)
-
-# EVmiRNA2.0 - miRNA expression
-expression = pd.read_csv('evmirna_data/PRJDB2585_expression.csv')
-
-# Vesiclepedia - Reference database
-proteins = pd.read_csv('vesiclepedia_data/VESICLEPEDIA_PROTEIN_MRNA_DATA_2024_10_13.txt', sep='\t')
-```
-
-→ See [documentation/04_Quick_Reference.md](documentation/04_Quick_Reference.md) for more examples
-
----
-
-## Project Structure
-
+## 5. Repository Structure
 ```
 EVDx/
-├── README.md                    # This file
-├── documentation/               # Detailed documentation
-│   ├── 01_Project_Overview.md   # Background and goals
-│   ├── 02_Data_Sources.md       # Dataset details
-│   ├── 03_Research_Directions.md # Integration strategies
-│   └── 04_Quick_Reference.md    # Code examples
-├── scripts/                     # Utility scripts
-├── papers/                      # Reference papers
-├── evmirna_data/               # miRNA database (371 projects)
-├── vesiclepedia_data/          # EV cargo database
-├── hoshino2020_data/           # Clinical proteomics
-└── kugeratski2021_data/        # Cell line proteomics
+├── analysis_results/       # FINAL DATABASE
+│   ├── proteomics/
+│   │   ├── merged_protein_matrix_log2.csv  # The Main Protein Data
+│   │   └── merged_metadata.csv             # Clinical Labels
+│   └── mirna/
+│       ├── merged_mirna_matrix_log2.csv    # The Main miRNA Data
+│       └── merged_mirna_metadata.csv       # Clinical Labels
+├── candidate_papers_final.csv      # Master list of Proteomics sources
+├── geo_mirna_candidates_final.csv  # Master list of miRNA sources
+├── scripts/                # All automation scripts
+│   ├── 01_pride_scout.py
+│   ├── 09_normalize_proteins.py
+│   ├── 10_normalize_mirna.py
+│   └── ...
+└── raw_data/               # Source files (Gitignored mostly)
 ```
-
----
-
-## Documentation
-
-| Document | Content |
-|----------|---------|
-| [01_Project_Overview.md](documentation/01_Project_Overview.md) | Project background, goals, and scope |
-| [02_Data_Sources.md](documentation/02_Data_Sources.md) | Detailed description of all 4 datasets |
-| [03_Research_Directions.md](documentation/03_Research_Directions.md) | Integration strategies and ML approaches |
-| [04_Quick_Reference.md](documentation/04_Quick_Reference.md) | Code examples for data loading |
-
----
-
-## Project Phases
-
-### Phase 1: Data Collection ✅ Complete
-- 4 data sources acquired
-- ~3.5 GB total data
-- 586+ exosome samples with proteomics
-- 371 projects with miRNA data
-
-### Phase 2: Data Standardization ⏳ In Progress
-- Map protein/gene identifiers
-- Normalize across datasets
-- Handle missing values
-- Extract disease labels
-
-### Phase 3: Model Development 📋 Planned
-- Cancer vs healthy classification
-- Multi-cancer type classification
-- Biomarker panel optimization
-
----
-
-## Key Findings from Data
-
-- **90%+ sensitivity/specificity** for cancer detection (Hoshino 2020)
-- **Syntenin-1** identified as universal exosome marker (Kugeratski 2021)
-- **21 cancer types** represented in clinical samples
-- **Overlapping cell lines** (MCF7, MDA-MB-231, PANC1, HEK293) enable cross-validation
-
----
-
-## Citations
-
-**Hoshino et al. (2020)** - Cell 182(4):1044-1061 | PRIDE: PXD018301
-
-**Kugeratski et al. (2021)** - Nat Cell Biol 23(6):631-641 | PRIDE: PXD020260
-
-**EVmiRNA2.0 (2022)** - Nucleic Acids Res | https://bioinfo.life.hust.edu.cn/EVmiRNA
-
-**Vesiclepedia (2024)** - Nucleic Acids Res 52(D1):D1694-D1698
-
----
-
-## Resources
-
-- [EVmiRNA2.0 Website](https://guolab.wchscu.cn/EVmiRNA2.0/)
-- [Vesiclepedia Website](http://www.microvesicles.org/)
-- [PRIDE Archive](https://www.ebi.ac.uk/pride/)
-
----
-
-**Last Updated**: November 22, 2025

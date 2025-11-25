@@ -1,4 +1,0 @@
-BioProject,Run,EV_type,Source,disease,Disease_stage/treatment,Release_date,URL,EV isolated method,Project_Title,Project_Description
-PRJNA565976,SRR10133040,sEV,Blood|Serum,-,-,2019-09-18,https://www.ncbi.nlm.nih.gov/bioproject/PRJNA565976/,-,Next-gen sequencing for transcriptomic differences in livers of mice with acetaminophen toxicity,"The goal of the study is to compare transcriptome profile of mouse liver with acetaminophen toxicity to potentially therapeutic healthy blood serum exosome or cytokine treatments along with acetaminophen
-Studies also included sequencing of miRNA from exosomes isolated  from pooled serum of several healthy anonimous human donors and livers of mice that received the exosome treatment along with acetominophen.
-Overall design: Exosomal and tissue small RNAs and tissue total RNA from healthy and injuried states were used to perfom high throughput sequensing by Ion Torrent Proton instrument"

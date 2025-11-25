@@ -2,33 +2,11 @@
 # EVDx Project .gitignore
 # ===========================================
 
-# Large data files (download separately - see README)
-# Total excluded: ~3.4 GB
+# Data - Exclude raw downloads and intermediate processing
+raw_data/
 
-# Hoshino 2020 data (>100 MB)
-hoshino2020_data/*.xlsx
-
-# Kugeratski 2021 data (>3 GB)
-kugeratski2021_data/*.zip
-kugeratski2021_data/14_cell_lines_maxquant/
-kugeratski2021_data/isolation_methods_maxquant/
-
-# Keep small files
-!kugeratski2021_data/README.txt
-!kugeratski2021_data/Source Quantitative.xlsx
-
-# ===========================================
-# Standard ignores
-# ===========================================
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+# Deprecated V1 data (Too large for Git - 10GB+)
+V1_deprecated/
 
 # Python
 __pycache__/

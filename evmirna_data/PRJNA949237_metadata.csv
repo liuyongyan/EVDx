@@ -1,9 +1,0 @@
-BioProject,Run,EV_type,Source,disease,Disease_stage/treatment,Release_date,URL,EV isolated method,Project_Title,Project_Description
-PRJNA949237,SRR23983028,sEV,Cell line|Cell line/JEG-3,Choriocarcinoma,ZIKV infection,2023-04-01,https://pubmed.ncbi.nlm.nih.gov/37781396/,-,Small RNA-seq of small extracellular vesicles secreted by Zika virus (ZIKV)-infected JEG-3 trophoblast cells (human),"Comparison of microRNA profiles of small extracellular vesicles isolated from mock- vs. ZIKV-infected JEG-3 cells.
-Overall design: miRNA-seq"
-PRJNA949237,SRR23983029,sEV,Cell line|Cell line/JEG-3,Choriocarcinoma,ZIKV infection,2023-04-01,https://pubmed.ncbi.nlm.nih.gov/37781396/,-,Small RNA-seq of small extracellular vesicles secreted by Zika virus (ZIKV)-infected JEG-3 trophoblast cells (human),"Comparison of microRNA profiles of small extracellular vesicles isolated from mock- vs. ZIKV-infected JEG-3 cells.
-Overall design: miRNA-seq"
-PRJNA949237,SRR23983030,sEV,Cell line|Cell line/JEG-3,Choriocarcinoma,mock infection,2023-04-01,https://pubmed.ncbi.nlm.nih.gov/37781396/,-,Small RNA-seq of small extracellular vesicles secreted by Zika virus (ZIKV)-infected JEG-3 trophoblast cells (human),"Comparison of microRNA profiles of small extracellular vesicles isolated from mock- vs. ZIKV-infected JEG-3 cells.
-Overall design: miRNA-seq"
-PRJNA949237,SRR23983031,sEV,Cell line|Cell line/JEG-3,Choriocarcinoma,mock infection,2023-04-01,https://pubmed.ncbi.nlm.nih.gov/37781396/,-,Small RNA-seq of small extracellular vesicles secreted by Zika virus (ZIKV)-infected JEG-3 trophoblast cells (human),"Comparison of microRNA profiles of small extracellular vesicles isolated from mock- vs. ZIKV-infected JEG-3 cells.
-Overall design: miRNA-seq"

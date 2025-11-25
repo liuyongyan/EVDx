@@ -156,16 +156,17 @@ EVDx/
 │       ├── merged_mirna_matrix_log2.csv    # The Main miRNA Data (CSV)
 │       └── merged_mirna_metadata.csv       # Clinical Labels
 ├── scripts/                # Automation Pipeline
-│   ├── 01_pride_scout.py              # Step 1: Scout Proteins
-│   ├── 02_download_pride_data.py      # Step 4: Download Proteins
-│   ├── 05_geo_scout.py                # Step 1: Scout miRNA
-│   ├── 06_enrich_geo_metadata.py      # Step 3: Label miRNA
-│   ├── 07_enrich_pride_metadata.py    # Step 3: Label Proteins
-│   ├── 08_download_geo_data.py        # Step 4: Download miRNA
-│   ├── 09_normalize_proteins.py       # Step 5: Clean Proteins
-│   ├── 10_normalize_mirna.py          # Step 5: Clean miRNA
-│   ├── 11_fetch_pubmed_abstracts.py   # Step 3: Refine Labels
-│   └── 12_sync_labels.py              # Step 5: Final Sync
+│   ├── 01_pride_scout.py              # Step 1: Scout Proteomics (PRIDE)
+│   ├── 02_download_pride_data.py      # Step 4: Download Proteomics Data
+│   ├── 05_geo_scout.py                # Step 1: Scout miRNA (GEO)
+│   ├── 06_enrich_geo_metadata.py      # Step 2: Fetch GEO Metadata (Deep)
+│   ├── 07_enrich_pride_metadata.py    # Step 2: Fetch PRIDE Metadata (Deep)
+│   ├── 08_download_geo_data.py        # Step 4: Download miRNA Data
+│   ├── 09_normalize_proteins.py       # Step 5: Process & Normalize Proteins
+│   ├── 10_normalize_mirna.py          # Step 5: Process & Normalize miRNA
+│   ├── 11_fetch_pubmed_abstracts.py   # Step 3: Scrape PubMed for Disease Labels
+│   ├── 12_sync_labels.py              # Step 6: Sync Refined Labels to Metadata
+│   └── generate_candidate_list.py     # Helper: Filter scouts for review
 ├── candidate_papers_final.csv      # Master list of Proteomics sources
 ├── geo_mirna_candidates_final.csv  # Master list of miRNA sources
 └── raw_data/               # Source files (Gitignored)

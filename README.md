@@ -23,7 +23,7 @@ We have successfully aggregated and harmonized data from over **50 studies** usi
 ### B. miRNA Database
 *   **Source:** GEO (RNA-seq Counts).
 *   **Total Samples:** 1,455
-*   **Total Features:** 56,359 miRNA entries (Includes isoforms/variants).
+*   **Total Features:** 7,480 miRNA entries (Cleaned & Harmonized).
 *   **Key Cohorts:**
     *   **Parkinson's Disease:** 222 samples
     *   **Cancer (Mixed):** 272 samples

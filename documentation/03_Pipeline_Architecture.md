@@ -19,15 +19,24 @@ graph TD
 
 ## 2. Detailed Steps
 
-### A. Scouting (Identification)
-**Goal:** Find "Gold Standard" datasets without manual searching.
+### A. Paper Selection & Filtering Logic
+**Goal:** Find "Gold Standard" datasets without manual searching. We employed a strict programmatic filter ("The Funnel") to reduce thousands of potential studies down to a high-quality core set.
 
-*   **Proteins (`01_pride_scout.py`):**
-    *   Queries PRIDE API for `Homo sapiens` AND (`plasma` OR `serum`).
-    *   **Critical Filter:** Checks file list for `proteinGroups.txt` (MaxQuant output) or Excel results. Discards raw-only studies.
-*   **miRNA (`05_geo_scout.py`):**
-    *   Queries GEO for `non-coding RNA profiling` AND `plasma/serum`.
-    *   Filters for studies with >10 samples and available count matrix files.
+#### 1. Proteomics Funnel (PRIDE)
+*   **Input:** ~1,500 studies matching keywords (`exosome`, `extracellular vesicle`, `plasma`, `serum`).
+*   **Filter 1 (Species):** Retain only **Homo sapiens**.
+*   **Filter 2 (Biofluid):** Exclude "Cell Culture", "Supernatant", "Tissue". Retain only **Plasma/Serum** to ensure clinical applicability.
+*   **Filter 3 (Software):** Retain only studies processed with **MaxQuant**.
+    *   *Reason:* MaxQuant produces a standard `proteinGroups.txt` file, allowing us to merge data without re-processing raw mass spectrometry files.
+*   **Filter 4 (Data Availability):** Retain only studies that actually uploaded the processed result files (`proteinGroups.txt` or `.xlsx`).
+    *   *Result:* Reduced ~1,500 candidates to **23 high-quality datasets**.
+
+#### 2. miRNA Funnel (GEO)
+*   **Input:** Search query for `non-coding RNA profiling` AND `plasma/serum`.
+*   **Filter 1 (Sample Size):** Exclude studies with < 10 samples (insufficient for ML).
+*   **Filter 2 (Data Type):** Programmatic scan of FTP directories. Retain only studies containing **Count Matrices** (`_counts.txt`, `_matrix.csv.gz`).
+    *   *Reason:* We avoid raw FASTQ reprocessing to ensure scalability and speed.
+    *   *Result:* Identified **34 high-quality datasets**.
 
 ### B. Metadata Enrichment (Labeling)
 **Goal:** Turn vague IDs (`GSE12345`) into clinical context (`Alzheimer's`).

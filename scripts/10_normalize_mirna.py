@@ -138,13 +138,23 @@ def standardize_mirna_matrix(df, gse_id, disease_label):
     metadata = []
     for sample in norm_df.columns:
         global_id = f"{gse_id}_{sample}"
+        s_lower = str(sample).lower()
         
-        # Infer Control vs Case
-        cond = "Case"
-        if any(x in str(sample).lower() for x in ['control', 'ctrl', 'healthy', 'norm', 'hc']):
+        cond = "Unknown"
+        
+        # Control Keywords
+        if any(x in s_lower for x in ['control', 'ctrl', 'healthy', 'norm', 'hc', 'volunteer', 'non-tumor', 'non_tumor', 'donor']):
             cond = "Healthy Control"
+        # Case Keywords (if not control)
+        elif any(x in s_lower for x in ['patient', 'case', 'tumor', 'cancer', 'disease', 'pd', 'ad', 'als']):
+            cond = disease_label if disease_label else "Case"
+        # Fallback: If we have a study disease label, assume it's a case-only study OR we missed the keyword
+        # But to be safe, let's mark ambiguous ones if we can't find a keyword? 
+        # Actually, for GEO, usually if it's not control, it's case.
         elif disease_label:
-            cond = disease_label
+             cond = disease_label
+        else:
+             cond = "Case" # Default assumption for clinical datasets
             
         metadata.append({
             "Global_ID": global_id,
